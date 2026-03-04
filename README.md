@@ -1,42 +1,42 @@
 # Currents Postman Demo
 
-Run Postman collections with Newman and report results to [Currents.dev](https://currents.dev).
+使用 Newman 运行 Postman 集合，并将测试结果上报到 [Currents.dev](https://currents.dev)。
 
-## Setup
+## 环境准备
 
-- **@currents/cmd** and **newman** are installed as development dependencies (npm).
+- 已通过 npm 将 **@currents/cmd** 和 **newman** 安装为开发依赖。
 
-## Usage
+## 使用说明
 
-### 1. Run collection with JUnit reporter
+### 1. 使用 JUnit 报告运行集合
 
 ```bash
 npx newman run ./collection.json -r cli,junit --reporter-junit-export ./results.xml
 ```
 
-Or use the npm script:
+或使用 npm 脚本：
 
 ```bash
 npm run test:postman
 ```
 
-Replace `./collection.json` with your Postman collection path if different.
+若集合路径不同，请将 `./collection.json` 替换为你的 Postman 集合文件路径。
 
-### 2. Convert JUnit to Currents format
+### 2. 将 JUnit 报告转换为 Currents 格式
 
 ```bash
 npx currents convert --input-format=junit --input-file=./results.xml --framework=postman
 ```
 
-Or:
+或：
 
 ```bash
 npm run test:currents:convert
 ```
 
-### 3. Upload to Currents
+### 3. 上传到 Currents
 
-上传到 Currents 只需执行（先完成步骤 1、2 生成并转换结果后）：
+完成步骤 1、2 生成并转换结果后，执行上传：
 
 ```bash
 npx currents upload --key=YOUR_RECORD_KEY --project-id=gnRUTN
@@ -49,23 +49,23 @@ export CURRENTS_RECORD_KEY=YOUR_RECORD_KEY
 npm run test:currents:upload
 ```
 
-**请勿将 record key 写进代码或提交到仓库。** 在 CI 中用 secrets 配置 `CURRENTS_RECORD_KEY`。
+**请勿将 record key 写进代码或提交到仓库。** 在 CI 中请使用 secrets 配置 `CURRENTS_RECORD_KEY`。
 
-### All-in-one
+### 一键执行
 
-Run collection, convert, and upload in one go:
+依次执行「运行集合 → 转换 → 上传」：
 
 ```bash
-CURRENTS_RECORD_KEY=your_record_key npm run test:currents
+CURRENTS_RECORD_KEY=你的_record_key npm run test:currents
 ```
 
-## CI
+## CI 集成
 
-In CI, set `CURRENTS_RECORD_KEY` as a secret and run:
+在 CI 中将 `CURRENTS_RECORD_KEY` 配置为 secret，然后执行：
 
 ```bash
 npm ci
 npm run test:currents
 ```
 
-Or run the steps separately if you need more control.
+如需更细粒度控制，也可在 CI 中分步执行上述命令。
