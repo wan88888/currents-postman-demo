@@ -1,0 +1,25 @@
+{
+  "info": {
+    "name": "Currents Postman Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Example request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": ["pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "https://httpbin.org/get"
+      }
+    }
+  ]
+}
